@@ -1,6 +1,6 @@
 import React from 'react';
-import '/.app.css';
-import Routes from './routes'
+import Routes from './routes';
+import './app.css';
 
 
 

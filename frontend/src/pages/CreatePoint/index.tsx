@@ -7,6 +7,7 @@ import api from '../../services/api';
 import axios from 'axios';
 import { LeafletMouseEvent } from 'leaflet';
 import MyDropzone from '../../components/Dropzone'
+import Logo from '../../assets/logo.svg';
 
 
 interface Item {
@@ -69,9 +70,11 @@ const CreatePoint = () => {
   }, [])
 
 // Chamando a API com os municípios.
-  useEffect(() => {
-    selectedUF === '0' ? null : 
-
+useEffect(() => {
+  if (selectedUF === '0') {
+    return;
+  }
+    
     api.get<UfCity[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUF}/municipios`)
       .then( res => {
         const city = res.data.map( city => city.nome)
@@ -141,13 +144,15 @@ const CreatePoint = () => {
 
     await api.post('points', data);
 
+    alert('Ponto de coleta Criado!')
+
     history.push('/')
   }
 
   return (
     <div id="page-create-point">
       <header>
-        <img src="" alt="Ecoleta"/>
+        <img src={Logo} alt="Ecoleta"/>
 
         <Link to="/"> 
           Voltar para Home
